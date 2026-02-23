@@ -32,4 +32,20 @@ public class StudentServiceImpl implements StudentService {
         Student student = StudentMapper.mapToStudent(studentDto);
         studentRepository.save(student);
     }
+
+    @Override
+    public StudentDto getById(Long studentId) {
+        Student student = studentRepository.findById(studentId).get();
+        StudentDto studentDto = StudentMapper.mapToStudentDto(student);
+        return studentDto;
+    }
+
+    @Override
+    public void updateStudent(StudentDto studentDto) {
+        Student student = studentRepository.findById(studentDto.getId()).get();
+        student.setFirstName(studentDto.getFirstName());
+        student.setLastName(studentDto.getLastName());
+        student.setEmail(studentDto.getEmail());
+        studentRepository.save(student);
+    }
 }
